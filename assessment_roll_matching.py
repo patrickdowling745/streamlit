@@ -95,7 +95,7 @@ if st.session_state.authenticated:
         # Convert parcel_id column to string type before applying string operations
         df['parcel_id'] = df['parcel_id'].astype(str)
         df['parcel_id'] = df['parcel_id'].str.strip().str.replace('-','').str.replace('.','').str.replace(' ','')
-        
+
         # Select relevant columns
         df = df[['parcel_id', market_value, building_value, land_value, extra_feature_value]]
 
