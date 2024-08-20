@@ -72,7 +72,8 @@ if st.session_state.authenticated:
     uploaded_file = st.file_uploader("Upload an Assessment Roll CSV file", type=["csv"])
 
     if uploaded_file is not None: 
-        df = pd.read_csv(uploaded_file)
+        # Load the CSV with low_memory=False to avoid DtypeWarning and handle mixed types
+        df = pd.read_csv(uploaded_file, low_memory=False)
         st.write(df.head())
 
         st.write('Please select the Parcel ID, Market Value, Building Value, Land Value, and Extra Feature Value Columns from the roll')
