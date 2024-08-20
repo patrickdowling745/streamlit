@@ -1,14 +1,15 @@
 import streamlit as st
 import pandas as pd 
 import pymysql
-import toml
 
-# Load the configuration file
-config = toml.load("config.toml")
-
-# Replace with your desired credentials
-USERNAME = config['USERNAME']
-PASSWORD = config['PASSWORD']
+# Load the credentials from Streamlit's secrets
+USERNAME = st.secrets["USERNAME"]
+PASSWORD = st.secrets["PASSWORD"]
+HOST = st.secrets["HOST"]
+USER = st.secrets["USER"]
+PASS = st.secrets["PASS"]
+DATA = st.secrets["DATA"]
+CHAR = st.secrets["CHAR"]
 
 # Define a function to check username and password
 def check_credentials(username, password):
@@ -41,11 +42,11 @@ if st.session_state.authenticated:
     # Function to query the database
     def TP_Query(county, state):
         connection = pymysql.connect(
-            host=config['HOST'],
-            user=config['USER'],
-            password=config['PASS'],
-            database=config['DATA'],
-            charset=config['CHAR'],
+            host=HOST,
+            user=USER,
+            password=PASS,
+            database=DATA,
+            charset=CHAR,
             cursorclass=pymysql.cursors.DictCursor
         )
         try: 
@@ -115,3 +116,4 @@ if st.session_state.authenticated:
                 file_name='query_results.csv',
                 mime='text/csv'
             )
+
